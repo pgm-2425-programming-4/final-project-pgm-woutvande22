@@ -14,7 +14,7 @@ client/*.local
 
 # Editor directories and files
 client/.vscode/*
-client/!.vscode/extensions.json
+!client/.vscode/extensions.json
 client/.idea
 client/.DS_Store
 client/*.suo
@@ -22,6 +22,43 @@ client/*.ntvs*
 client/*.njsproj
 client/*.sln
 client/*.sw?
+
+
+
+
+############################
+# OS X
+############################
+
+server/.DS_Store
+server/.AppleDouble
+server/.LSOverride
+server/Icon
+server/.Spotlight-V100
+server/.Trashes
+server/._*
+
+
+############################
+# Linux
+############################
+
+server/*~
+
+
+############################
+# Windows
+############################
+
+server/Thumbs.db
+server/ehthumbs.db
+server/Desktop.ini
+server/$RECYCLE.BIN/
+server/*.cab
+server/*.msi
+server/*.msm
+server/*.msp
+
 
 ############################
 # Packages
@@ -51,15 +88,17 @@ server/*.swm
 server/*.out
 server/*.pid
 
+
 ############################
 # Logs and databases
 ############################
 
-server/*.tmp
+server/.tmp
 server/*.log
 server/*.sql
 server/*.sqlite
 server/*.sqlite3
+
 
 ############################
 # Misc.
