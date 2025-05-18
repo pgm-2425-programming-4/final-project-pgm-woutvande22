@@ -1,0 +1,37 @@
+{
+  "kind": "collectionType",
+  "collectionName": "todos",
+  "info": {
+    "singularName": "todo",
+    "pluralName": "todos",
+    "displayName": "Todo",
+    "description": ""
+  },
+  "options": {
+    "draftAndPublish": true
+  },
+  "attributes": {
+    "title": {
+      "type": "string",
+      "required": true
+    },
+    "project": {
+      "type": "relation",
+      "relation": "manyToOne",
+      "target": "api::project.project",
+      "inversedBy": "todos"
+    },
+    "task_status": {
+      "type": "relation",
+      "relation": "manyToOne",
+      "target": "api::task-status.task-status",
+      "inversedBy": "todos"
+    },
+    "task_tags": {
+      "type": "relation",
+      "relation": "manyToMany",
+      "target": "api::task-tag.task-tag",
+      "mappedBy": "todos"
+    }
+  }
+}
