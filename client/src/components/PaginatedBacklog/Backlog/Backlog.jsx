@@ -1,19 +1,9 @@
-import React from 'react'
-import { Pagination} from  '../../Pagination/Pagination';
-
-function Backlog() {
+export function Backlog({ backlog }) {
   return (
-    <>
-      <div style={{ marginBottom: "2rem" }}>
-        <StudentList students={students} />
-      </div>
-      <Pagination
-        currentPage={currentPage}
-        pageCount={pageCount}
-        onPageChanged={handlePageChanged}
-      />
-    </>
+    <ul>
+      {backlog.map((item) => (
+        <li key={item.id}>{item.title}</li>
+      ))}
+    </ul>
   );
 }
-
-export default Backlog

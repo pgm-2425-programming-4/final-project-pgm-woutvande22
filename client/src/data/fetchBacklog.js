@@ -3,7 +3,7 @@ const API_TOKEN =
 
 const API_URL = "http://localhost:1337/api";
 
-export async function fetchStudents(page, pageSize) {
+export async function fetchBacklog(page, pageSize) {
   const result = await fetch(
     `${API_URL}/todos?pagination[page]=${page}&pagination[pageSize]=${pageSize}`,
     {
@@ -16,4 +16,3 @@ export async function fetchStudents(page, pageSize) {
   return data;
 }
 
-console.log( fetchStudents(1, 10));

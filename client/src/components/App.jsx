@@ -1,13 +1,13 @@
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 import "./App.css";
-import { Backlog } from "./PaginatedBacklog/Backlog/Backlog";
+import { PaginatedBacklog } from "./PaginatedBacklog/backlog-list";
 
 const queryClient = new QueryClient();
 
 function App() {
   return (
       <QueryClientProvider client={queryClient}>
-        < Backlog/>
+        < PaginatedBacklog/>
       </QueryClientProvider>
   );
 }
