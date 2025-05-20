@@ -1,3 +1,5 @@
+import { Pagination } from "./Pagination/Pagination.jsx";
+
 const PAGE_SIZE_OPTIONS = [5, 10, 20, 50];
 
 export function Pagination({
