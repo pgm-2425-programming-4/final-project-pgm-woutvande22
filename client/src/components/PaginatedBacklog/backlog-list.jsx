@@ -1,7 +1,7 @@
 import { useEffect, useState } from "react";
-import { fetchBacklog } from "../../data/fetchBacklog";
-import {Backlog} from "./backlog/backlog";
-import { Pagination } from "./pagination/pagination";
+import { fetchBacklog } from "../../data/fetchBacklog.js";
+import {Backlog} from "./backlog/backlog.jsx";
+import { Pagination } from "./pagination/pagination.jsx";
 import { useQuery } from "@tanstack/react-query";
 const PAGE_SIZE_OPTIONS = [5, 10, 20, 50];
 
