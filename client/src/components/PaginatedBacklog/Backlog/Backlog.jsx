@@ -1,3 +1,5 @@
+import { PaginatedBacklog } from "./paginatedbacklog/backlog-list";
+
 export function Backlog({ backlog }) {
   return (
     <div>
