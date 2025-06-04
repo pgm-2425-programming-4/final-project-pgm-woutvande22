@@ -1,9 +1,9 @@
 'use strict';
 
 /**
- * todo controller
+ * project controller
  */
 
 const { createCoreController } = require('@strapi/strapi').factories;
 
-module.exports = createCoreController('api::todo.todo');
+module.exports = createCoreController('api::project.project');
