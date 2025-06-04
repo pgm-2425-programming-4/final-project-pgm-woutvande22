@@ -11,7 +11,7 @@ export function Backlog({ backlog }) {
         <tbody>
           {backlog.map((item) => (
             <tr key={item.id}>
-              <td>{item.title}</td>
+              <td>{item.name}</td>
             </tr>
           ))}
         </tbody>

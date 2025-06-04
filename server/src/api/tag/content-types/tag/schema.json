@@ -1,26 +1,25 @@
 {
   "kind": "collectionType",
-  "collectionName": "projects",
+  "collectionName": "tags",
   "info": {
-    "singularName": "project",
-    "pluralName": "projects",
-    "displayName": "project",
+    "singularName": "tag",
+    "pluralName": "tags",
+    "displayName": "tag",
     "description": ""
   },
   "options": {
     "draftAndPublish": true
   },
   "attributes": {
-    "name": {
+    "title": {
       "type": "string",
-      "required": true,
-      "unique": true
+      "required": true
     },
     "tasks": {
       "type": "relation",
       "relation": "oneToMany",
       "target": "api::task.task",
-      "mappedBy": "project"
+      "mappedBy": "task"
     }
   }
 }
