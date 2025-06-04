@@ -10,7 +10,6 @@ export async function fetchBacklog(page, pageSize) {
     }
   );
   const data = await result.json();
-  console.log(data.data[0].tasks);
   return data;
 }
 
