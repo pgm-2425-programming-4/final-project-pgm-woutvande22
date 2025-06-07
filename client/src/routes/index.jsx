@@ -5,5 +5,8 @@ export const Route = createFileRoute("/")({
 });
 
 function RouteComponent() {
-  return <div>Test</div>;
+  return <div>
+    <p>Welcome to my kanban board. </p>
+    <p>"Author Vanderbauwhede Wout"</p>
+    </div>;
 }
