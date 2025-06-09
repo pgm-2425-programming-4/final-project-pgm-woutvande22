@@ -16,10 +16,13 @@ function RootComponent() {
 
   return (
     <>
-      <div className="p-4">
-        <Link to="/">About</Link>
+      <div className="p-4 navbar">
+       
         {/* Project links in a list */}
         <ul>
+          <li>
+          <Link to="/">About</Link>
+          </li>
           {data?.data?.map((project) => (
             <li key={project.id}>
               <Link
