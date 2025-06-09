@@ -22,7 +22,7 @@ export function PaginatedBacklog( {projectId}) {
   const { isPending, isError, error, data } = useQuery({
     queryKey: ["backlog", { currentPage, pageSize, projectId }],
     queryFn: () => fetchBacklog(currentPage, pageSize, projectId),
-    enabled: !!projectId, // only run if projectId is available
+    enabled: !!projectId,
   });
 
   useEffect(() => {

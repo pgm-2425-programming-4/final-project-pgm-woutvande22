@@ -11,6 +11,5 @@ export async function fetchProjects() {
         },
     );
     const data = await result.json();
-    console.log("Fetched projects:", data);
     return await data;
 }
