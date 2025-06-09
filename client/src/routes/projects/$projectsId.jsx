@@ -1,4 +1,4 @@
-import { createFileRoute} from '@tanstack/react-router'
+import { createFileRoute, Link} from '@tanstack/react-router'
 import { useQuery } from '@tanstack/react-query'
 import { fetchProjectsById } from '../../data/fetchProjectsById'
 
@@ -51,6 +51,9 @@ function RouteComponent() {
 
   return (
     <div>
+    <Link to="/projects/$projectsId/backlog" params={{ projectsId: project?.id }}>
+        Backlog
+      </Link>
       {renderTaskCards(tasks)}
     </div>
   );
