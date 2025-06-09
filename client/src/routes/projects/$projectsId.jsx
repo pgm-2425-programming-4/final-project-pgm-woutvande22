@@ -21,6 +21,24 @@ function TaskCard({ title, tasks, emptyText }) {
   );
 }
 
+function renderTaskCards(tasks) {
+  const states = [
+    { state: "todo", title: "To do", emptyText: "No todo tasks" },
+    { state: "progress", title: "In progress", emptyText: "No tasks in progress" },
+    { state: "review", title: "In Review", emptyText: "No tasks in review" },
+    { state: "done", title: "Done", emptyText: "No done tasks" },
+  ];
+
+  return states.map(({ state, title, emptyText }) => (
+    <TaskCard
+      key={state}
+      title={title}
+      tasks={tasks.filter((task) => task.state === state)}
+      emptyText={emptyText}
+    />
+  ));
+}
+
 function RouteComponent() {
   const { projectsId } = Route.useParams();
   const { data } = useQuery({
@@ -30,17 +48,10 @@ function RouteComponent() {
 
   const project = data?.data?.[0];
   const tasks = project?.tasks || [];
-  const todoTasks = tasks.filter((task) => task.state === "todo");
-  const todoProgess = tasks.filter((task) => task.state === "progress");
-  const todoReview = tasks.filter((task) => task.state === "review");
-  const todoDone = tasks.filter((task) => task.state === "done");
-  
+
   return (
     <div>
-      <TaskCard title="To do" tasks={todoTasks} emptyText="No todo tasks" />
-      <TaskCard title="In progress" tasks={todoProgess} emptyText="No tasks in progress" />
-      <TaskCard title="In Review" tasks={todoReview} emptyText="No tasks in review" />
-      <TaskCard title="Done" tasks={todoDone} emptyText="No todo tasks" />
+      {renderTaskCards(tasks)}
     </div>
   );
 }
