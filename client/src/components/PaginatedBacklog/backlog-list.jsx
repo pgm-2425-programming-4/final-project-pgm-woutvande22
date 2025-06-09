@@ -46,6 +46,7 @@ export function PaginatedBacklog( {projectId}) {
   return (
     <>
       <div style={{ marginBottom: "2rem" }}>
+        <strong>Backlog tasks: {backlog.length}</strong>
         <Backlog backlog={backlog} />
       </div>
       <Pagination
