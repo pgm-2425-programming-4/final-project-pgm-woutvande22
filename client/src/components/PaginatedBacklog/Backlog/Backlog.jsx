@@ -1,10 +1,13 @@
-export function Backlog({ backlog }) {
+export function Backlog({ backlog, total }) {
   return (
     <div>
+      <div style={{ marginBottom: "1rem" }}>
+        
+      </div>
       <table className="table is-fullwidth is-striped is-hoverable">
         <thead>
           <tr>
-            <th>Backlog</th>
+            <th><strong>Backlog tasks: {total}</strong></th>
           </tr>
         </thead>
         <tbody>
