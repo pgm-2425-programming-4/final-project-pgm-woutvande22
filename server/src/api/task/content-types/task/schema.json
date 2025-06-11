@@ -35,6 +35,10 @@
       "relation": "oneToMany",
       "target": "api::tag.tag",
       "mappedBy": "task"
+    },
+    "description": {
+      "type": "text",
+      "default": "Beschrijving van de taak"
     }
   }
 }
