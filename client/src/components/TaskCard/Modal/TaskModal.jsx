@@ -1,5 +1,5 @@
 import React from "react";
-import { Tag } from "./Tag/tag";
+import { Tag } from "../Tag/tag";
 
 export function TaskModal({ task, onClose }) {
   if (!task) return null;

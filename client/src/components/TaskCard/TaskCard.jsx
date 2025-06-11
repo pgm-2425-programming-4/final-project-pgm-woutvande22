@@ -1,5 +1,6 @@
 import React, { useState } from "react";
 import { Tag } from "./Tag/tag";
+import { TaskModal } from "./modal/TaskModal";
 
 export function TaskCard({ title, tasks, emptyText }) {
   const [selectedTask, setSelectedTask] = useState(null);
@@ -37,36 +38,8 @@ export function TaskCard({ title, tasks, emptyText }) {
           ))
         )}
       </div>
-
-      {selectedTask && (
-        <div className={`modal is-active`}>
-          <div className="modal-background" onClick={closeModal}></div>
-          <div className="modal-card">
-            <header className="modal-card-head">
-              <p className="modal-card-title">{selectedTask.title}</p>
-              <button className="delete" aria-label="close" onClick={closeModal}></button>
-            </header>
-            <section className="modal-card-body">
-              <p><strong>Title:</strong> {selectedTask.title}</p>
-              <p><strong>Description:</strong> {selectedTask.description || <em>No description</em>}</p>
-              <p><strong>State:</strong> {selectedTask.state}</p>
-              <p><strong>Project:</strong> {selectedTask.project?.name || <em>No project</em>}</p>
-              <div className="tags mt-3">
-                {selectedTask.tags?.length
-                  ? selectedTask.tags.map((tag) => (
-                      <Tag key={tag.id} title={tag.title} />
-                    ))
-                  : <em>No tags</em>}
-              </div>
-              <p className="mt-3"><strong>Created At:</strong> {new Date(selectedTask.createdAt).toLocaleString()}</p>
-              <p><strong>Updated At:</strong> {new Date(selectedTask.updatedAt).toLocaleString()}</p>
-            </section>
-            <footer className="modal-card-foot">
-              <button className="button" onClick={closeModal}>Close</button>
-            </footer>
-          </div>
-        </div>
-      )}
+      {/* Use TaskModal component here */}
+      <TaskModal task={selectedTask} onClose={closeModal} />
     </div>
   );
 }
