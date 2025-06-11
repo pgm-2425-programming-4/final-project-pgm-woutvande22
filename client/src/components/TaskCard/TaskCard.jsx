@@ -38,7 +38,6 @@ export function TaskCard({ title, tasks, emptyText }) {
         )}
       </div>
 
-      {/* Modal */}
       {selectedTask && (
         <div className={`modal is-active`}>
           <div className="modal-background" onClick={closeModal}></div>
@@ -48,13 +47,19 @@ export function TaskCard({ title, tasks, emptyText }) {
               <button className="delete" aria-label="close" onClick={closeModal}></button>
             </header>
             <section className="modal-card-body">
-              <p><strong>Created At:</strong> {new Date(selectedTask.createdAt).toLocaleString()}</p>
-              <p><strong>Updated At:</strong> {new Date(selectedTask.updatedAt).toLocaleString()}</p>
+              <p><strong>Title:</strong> {selectedTask.title}</p>
+              <p><strong>Description:</strong> {selectedTask.description || <em>No description</em>}</p>
+              <p><strong>State:</strong> {selectedTask.state}</p>
+              <p><strong>Project:</strong> {selectedTask.project?.name || <em>No project</em>}</p>
               <div className="tags mt-3">
-                {selectedTask.tags?.map((tag) => (
-                  <Tag key={tag.id} title={tag.title} />
-                ))}
+                {selectedTask.tags?.length
+                  ? selectedTask.tags.map((tag) => (
+                      <Tag key={tag.id} title={tag.title} />
+                    ))
+                  : <em>No tags</em>}
               </div>
+              <p className="mt-3"><strong>Created At:</strong> {new Date(selectedTask.createdAt).toLocaleString()}</p>
+              <p><strong>Updated At:</strong> {new Date(selectedTask.updatedAt).toLocaleString()}</p>
             </section>
             <footer className="modal-card-foot">
               <button className="button" onClick={closeModal}>Close</button>
