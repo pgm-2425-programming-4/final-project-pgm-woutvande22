@@ -424,7 +424,7 @@ export interface ApiTagTag extends Struct.CollectionTypeSchema {
     localizations: Schema.Attribute.Relation<'oneToMany', 'api::tag.tag'> &
       Schema.Attribute.Private;
     publishedAt: Schema.Attribute.DateTime;
-    tag: Schema.Attribute.Relation<'manyToOne', 'api::task.task'>;
+    task: Schema.Attribute.Relation<'manyToOne', 'api::task.task'>;
     title: Schema.Attribute.String & Schema.Attribute.Required;
     updatedAt: Schema.Attribute.DateTime;
     updatedBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &
@@ -447,6 +447,8 @@ export interface ApiTaskTask extends Struct.CollectionTypeSchema {
     createdAt: Schema.Attribute.DateTime;
     createdBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &
       Schema.Attribute.Private;
+    description: Schema.Attribute.Text &
+      Schema.Attribute.DefaultTo<'Beschrijving van de taak'>;
     locale: Schema.Attribute.String & Schema.Attribute.Private;
     localizations: Schema.Attribute.Relation<'oneToMany', 'api::task.task'> &
       Schema.Attribute.Private;
@@ -455,7 +457,7 @@ export interface ApiTaskTask extends Struct.CollectionTypeSchema {
     state: Schema.Attribute.Enumeration<
       ['todo', 'progress', 'review', 'done', 'backlog']
     >;
-    tasks: Schema.Attribute.Relation<'oneToMany', 'api::tag.tag'>;
+    tags: Schema.Attribute.Relation<'oneToMany', 'api::tag.tag'>;
     title: Schema.Attribute.String;
     updatedAt: Schema.Attribute.DateTime;
     updatedBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &

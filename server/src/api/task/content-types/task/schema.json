@@ -30,11 +30,15 @@
         "backlog"
       ]
     },
-    "tasks": {
+    "tags": {
       "type": "relation",
       "relation": "oneToMany",
       "target": "api::tag.tag",
-      "mappedBy": "tag"
+      "mappedBy": "task"
+    },
+    "description": {
+      "type": "text",
+      "default": "Beschrijving van de taak"
     }
   }
 }
