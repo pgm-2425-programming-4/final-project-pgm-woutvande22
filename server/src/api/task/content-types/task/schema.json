@@ -30,11 +30,11 @@
         "backlog"
       ]
     },
-    "tasks": {
+    "tags": {
       "type": "relation",
       "relation": "oneToMany",
       "target": "api::tag.tag",
-      "mappedBy": "tag"
+      "mappedBy": "task"
     }
   }
 }
