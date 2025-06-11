@@ -14,7 +14,7 @@ function renderTaskCards(tasks) {
     { state: "review", title: "In Review", emptyText: "No tasks in review" },
     { state: "done", title: "Done", emptyText: "No done tasks" },
   ];
-  console.log("Fetched tasks:", tasks);
+
 
   return states.map(({ state, title, emptyText }) => (
     <TaskCard
