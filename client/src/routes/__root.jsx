@@ -1,5 +1,5 @@
 import * as React from "react";
-import { Outlet, createRootRoute, Link, useRouter, useMatchRoute } from "@tanstack/react-router";
+import { Outlet, createRootRoute, Link, useRouter } from "@tanstack/react-router";
 import { TanStackRouterDevtools } from "@tanstack/react-router-devtools";
 import { fetchProjects } from "../data/fetchProjects.js";
 import { useQuery } from "@tanstack/react-query";
@@ -15,7 +15,7 @@ function RootComponent() {
   });
 
   const router = useRouter();
-  const matchRoute = useMatchRoute();
+
 
   // Get the current projectId from the route params if available
   const currentProjectId =
