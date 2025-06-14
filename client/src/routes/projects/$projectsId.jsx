@@ -2,6 +2,7 @@ import { createFileRoute, Link } from '@tanstack/react-router'
 import { useQuery } from '@tanstack/react-query'
 import { fetchTasksByProjectId } from '../../data/fetchTaskByProject'
 import { TaskCard } from '../../components/TaskCard/TaskCard'
+import { useState } from 'react'
 
 export const Route = createFileRoute('/projects/$projectsId')({
   component: RouteComponent,
@@ -33,15 +34,36 @@ function RouteComponent() {
     queryFn: () => fetchTasksByProjectId(projectsId),
   });
 
+  const [search, setSearch] = useState("");
   const tasks = data?.data || [];
+
   
+  const filteredTasks = search
+    ? tasks.filter((task) =>
+        (task.title || "")
+          .toLowerCase()
+          .includes(search.toLowerCase())
+      )
+    : tasks;
 
   return (
     <div>
+      
+      <div style={{ margin: "1rem 0" }}>
+        <input
+          className="input"
+          type="text"
+          placeholder="Search tasks by name..."
+          value={search}
+          onChange={e => setSearch(e.target.value)}
+          style={{ maxWidth: 300 }}
+        />
+      </div>
+
       <Link to="/projects/$projectsId/backlog" params={{ projectsId }}>
         Backlog
       </Link>
-      {renderTaskCards(tasks)}
+      {renderTaskCards(filteredTasks)}
     </div>
   );
 }
