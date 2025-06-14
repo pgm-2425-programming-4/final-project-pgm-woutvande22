@@ -7,11 +7,15 @@ export function Backlog({ backlog, total }) {
   const handleRowClick = (task) => {
     setSelectedTask({
       ...task,
-      documentId: task.documentId, // ensure documentId is set for modal
+      documentId: task.documentId,
     });
   };
 
   const closeModal = () => setSelectedTask(null);
+
+  const handleTaskDeleted = () => {
+    setSelectedTask(null);
+  };
 
   return (
     <div>
@@ -34,7 +38,11 @@ export function Backlog({ backlog, total }) {
           ))}
         </tbody>
       </table>
-      <TaskModal task={selectedTask} onClose={closeModal} />
+      <TaskModal 
+        task={selectedTask} 
+        onClose={closeModal}
+        onTaskDeleted={handleTaskDeleted}
+      />
     </div>
   );
 }

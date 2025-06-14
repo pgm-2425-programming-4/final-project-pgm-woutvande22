@@ -13,6 +13,11 @@ export function TaskCard({ title, tasks, emptyText }) {
     setSelectedTask(null);
   };
 
+  // Add onTaskDeleted handler
+  const handleTaskDeleted = () => {
+    setSelectedTask(null); // Close modal
+  };
+
   return (
     <div className="mb-5">
       <h2 className="title is-3">{title}</h2>
@@ -38,8 +43,11 @@ export function TaskCard({ title, tasks, emptyText }) {
           ))
         )}
       </div>
-      {/* Use TaskModal component here */}
-      <TaskModal task={selectedTask} onClose={closeModal} />
+      <TaskModal 
+        task={selectedTask} 
+        onClose={closeModal}
+        onTaskDeleted={handleTaskDeleted} 
+      />
     </div>
   );
 }

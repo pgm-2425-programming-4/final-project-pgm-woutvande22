@@ -12,7 +12,6 @@ export async function deleteTask(taskId) {
     if (!response.ok) {
         throw new Error(`Error deleting task: ${response.statusText}`);
     }
-   console.log("Task deleted successfully");
 
     return await response.json();
 }

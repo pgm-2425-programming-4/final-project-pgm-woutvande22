@@ -6,8 +6,8 @@ import { deleteTask } from "../../../data/deleteTask";
 
 const STATES = ["todo", "progress", "review", "done", "backlog"];
 
-export function TaskModal({ task, onClose }) {
-  const [editMode, setEditMode] = useState(false); //zet edit mode when clicked
+export function TaskModal({ task, onClose, onTaskDeleted }) {
+  const [editMode, setEditMode] = useState(false);
   const [title, setTitle] = useState("");
   const [description, setDescription] = useState("");
   const [currentState, setCurrentState] = useState("");
@@ -38,18 +38,10 @@ export function TaskModal({ task, onClose }) {
     onSuccess: () => {
       queryClient.invalidateQueries({ queryKey: ["tasks"] });
       queryClient.invalidateQueries({ queryKey: ["backlog"] });
+      onTaskDeleted?.(); // Call optional callback
       onClose();
     },
   });
-
-  const handleSave = () => {
-    mutation.mutate({
-      taskId: task.documentId,
-      state: currentState,
-      title,
-      description,
-    });
-  };
 
   const handleDelete = () => {
     deleteMutation.mutate(task.documentId);
@@ -179,7 +171,7 @@ export function TaskModal({ task, onClose }) {
         </div>
       </div>
 
-      {/* Delete Modal */}
+      {/* Delete Confirmation Modal */}
       {isDeleteModalOpen && (
         <div className="modal is-active">
           <div className="modal-background" onClick={() => setIsDeleteModalOpen(false)}></div>
