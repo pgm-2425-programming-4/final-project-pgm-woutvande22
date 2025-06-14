@@ -2,6 +2,9 @@ import { createFileRoute, Link } from '@tanstack/react-router'
 import { useQuery } from '@tanstack/react-query'
 import { fetchTasksByProjectId } from '../../data/fetchTaskByProject'
 import { TaskCard } from '../../components/TaskCard/TaskCard'
+import { useState } from 'react'
+import { TaskSearchBar } from '../../components/TaskSearchBar';
+import { fetchTags } from '../../data/fetchTags';
 
 export const Route = createFileRoute('/projects/$projectsId')({
   component: RouteComponent,
@@ -33,15 +36,52 @@ function RouteComponent() {
     queryFn: () => fetchTasksByProjectId(projectsId),
   });
 
+  // Fetch all tags
+  const { data: tagsData } = useQuery({
+    queryKey: ["tags"],
+    queryFn: fetchTags,
+  });
+
+  const [search, setSearch] = useState("");
+  const [selectedTag, setSelectedTag] = useState(""); // Tag filter state
+
   const tasks = data?.data || [];
-  
+  const tags = tagsData?.data || [];
+
+  // Filter tasks by search and selected tag
+  const filteredTasks = tasks.filter((task) => {
+    const matchesSearch = search
+      ? (task.title || "").toLowerCase().includes(search.toLowerCase())
+      : true;
+    const matchesTag = selectedTag
+      ? task.tags && task.tags.some(tag => String(tag.id) === selectedTag)
+      : true;
+    return matchesSearch && matchesTag;
+  });
 
   return (
     <div>
+      
+      <div style={{ margin: "1rem 0" }}>
+      <TaskSearchBar value={search} onChange={setSearch} />
+      </div>
+      <div style={{ margin: "1rem 0" }}>
+        <select
+          className="input"
+          style={{ maxWidth: 300 }}
+          value={selectedTag}
+          onChange={e => setSelectedTag(e.target.value)}
+        >
+          <option value="">All tags</option>
+          {tags.map(tag => (
+            <option key={tag.id} value={tag.id}>{tag.title}</option>
+          ))}
+        </select>
+      </div>
       <Link to="/projects/$projectsId/backlog" params={{ projectsId }}>
         Backlog
       </Link>
-      {renderTaskCards(tasks)}
+      {renderTaskCards(filteredTasks)}
     </div>
   );
 }
