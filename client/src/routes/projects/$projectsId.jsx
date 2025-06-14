@@ -3,6 +3,7 @@ import { useQuery } from '@tanstack/react-query'
 import { fetchTasksByProjectId } from '../../data/fetchTaskByProject'
 import { TaskCard } from '../../components/TaskCard/TaskCard'
 import { useState } from 'react'
+import { TaskSearchBar } from '../../components/TaskSearchBar';
 
 export const Route = createFileRoute('/projects/$projectsId')({
   component: RouteComponent,
@@ -28,6 +29,7 @@ function renderTaskCards(tasks) {
 }
 
 function RouteComponent() {
+  
   const { projectsId } = Route.useParams();
   const { data } = useQuery({
     queryKey: ["tasks", projectsId],
@@ -50,14 +52,7 @@ function RouteComponent() {
     <div>
       
       <div style={{ margin: "1rem 0" }}>
-        <input
-          className="input"
-          type="text"
-          placeholder="Search tasks by name..."
-          value={search}
-          onChange={e => setSearch(e.target.value)}
-          style={{ maxWidth: 300 }}
-        />
+      <TaskSearchBar value={search} onChange={setSearch} />
       </div>
 
       <Link to="/projects/$projectsId/backlog" params={{ projectsId }}>
