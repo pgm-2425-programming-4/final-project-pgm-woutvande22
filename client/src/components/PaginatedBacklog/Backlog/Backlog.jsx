@@ -1,22 +1,17 @@
-import { useMutation, useQueryClient } from "@tanstack/react-query";
-import { updateTaskState } from "../../../data/updateTaskState";
-
-const STATES = ["todo", "progress", "review", "done", "backlog"];
+import { useState } from "react";
+import { TaskModal } from "../../TaskCard/modal/TaskModal";
 
 export function Backlog({ backlog, total }) {
-  const queryClient = useQueryClient();
+  const [selectedTask, setSelectedTask] = useState(null);
 
-  const mutation = useMutation({
-    mutationFn: ({ taskId, newState }) => updateTaskState(taskId, newState),
-    onSuccess: () => {
-      queryClient.invalidateQueries({ queryKey: ["backlog"] });
-    },
-  });
-
-  const handleStateChange = (taskId, e) => {
-    const newState = e.target.value;
-    mutation.mutate({ taskId, newState });
+  const handleRowClick = (task) => {
+    setSelectedTask({
+      ...task,
+      documentId: task.documentId, // ensure documentId is set for modal
+    });
   };
+
+  const closeModal = () => setSelectedTask(null);
 
   return (
     <div>
@@ -25,33 +20,21 @@ export function Backlog({ backlog, total }) {
         <thead>
           <tr>
             <th><strong>Backlog tasks: {total}</strong></th>
-            <th>Change State</th>
           </tr>
         </thead>
         <tbody>
           {backlog.map((item) => (
-            <tr key={item.documentId}>
+            <tr
+              key={item.id}
+              onClick={() => handleRowClick(item)}
+              style={{ cursor: "pointer" }}
+            >
               <td>{item.title}</td>
-              <td>
-                <select
-                  value={item.state}
-                  onChange={(e) => handleStateChange(item.documentId, e)}
-                  disabled={mutation.isPending}
-                >
-                  {STATES.map((state) => (
-                    <option key={state} value={state}>
-                      {state}
-                    </option>
-                  ))}
-                </select>
-                {mutation.isPending && mutation.variables?.taskId === item.documentId && (
-                  <span className="ml-2">Saving...</span>
-                )}
-              </td>
             </tr>
           ))}
         </tbody>
       </table>
+      <TaskModal task={selectedTask} onClose={closeModal} />
     </div>
   );
 }
