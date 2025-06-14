@@ -4,6 +4,7 @@ import { fetchTasksByProjectId } from '../../data/fetchTaskByProject'
 import { TaskCard } from '../../components/TaskCard/TaskCard'
 import { useState } from 'react'
 import { TaskSearchBar } from '../../components/TaskSearchBar';
+import { fetchTags } from '../../data/fetchTags';
 
 export const Route = createFileRoute('/projects/$projectsId')({
   component: RouteComponent,
@@ -29,24 +30,34 @@ function renderTaskCards(tasks) {
 }
 
 function RouteComponent() {
-  
   const { projectsId } = Route.useParams();
   const { data } = useQuery({
     queryKey: ["tasks", projectsId],
     queryFn: () => fetchTasksByProjectId(projectsId),
   });
 
-  const [search, setSearch] = useState("");
-  const tasks = data?.data || [];
+  // Fetch all tags
+  const { data: tagsData } = useQuery({
+    queryKey: ["tags"],
+    queryFn: fetchTags,
+  });
 
-  
-  const filteredTasks = search
-    ? tasks.filter((task) =>
-        (task.title || "")
-          .toLowerCase()
-          .includes(search.toLowerCase())
-      )
-    : tasks;
+  const [search, setSearch] = useState("");
+  const [selectedTag, setSelectedTag] = useState(""); // Tag filter state
+
+  const tasks = data?.data || [];
+  const tags = tagsData?.data || [];
+
+  // Filter tasks by search and selected tag
+  const filteredTasks = tasks.filter((task) => {
+    const matchesSearch = search
+      ? (task.title || "").toLowerCase().includes(search.toLowerCase())
+      : true;
+    const matchesTag = selectedTag
+      ? task.tags && task.tags.some(tag => String(tag.id) === selectedTag)
+      : true;
+    return matchesSearch && matchesTag;
+  });
 
   return (
     <div>
@@ -54,7 +65,19 @@ function RouteComponent() {
       <div style={{ margin: "1rem 0" }}>
       <TaskSearchBar value={search} onChange={setSearch} />
       </div>
-
+      <div style={{ margin: "1rem 0" }}>
+        <select
+          className="input"
+          style={{ maxWidth: 300 }}
+          value={selectedTag}
+          onChange={e => setSelectedTag(e.target.value)}
+        >
+          <option value="">All tags</option>
+          {tags.map(tag => (
+            <option key={tag.id} value={tag.id}>{tag.title}</option>
+          ))}
+        </select>
+      </div>
       <Link to="/projects/$projectsId/backlog" params={{ projectsId }}>
         Backlog
       </Link>
