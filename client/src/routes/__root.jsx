@@ -1,5 +1,5 @@
 import * as React from "react";
-import { Outlet, createRootRoute, Link } from "@tanstack/react-router";
+import { Outlet, createRootRoute, Link, useRouter, useMatchRoute } from "@tanstack/react-router";
 import { TanStackRouterDevtools } from "@tanstack/react-router-devtools";
 import { fetchProjects } from "../data/fetchProjects.js";
 import { useQuery } from "@tanstack/react-query";
@@ -14,25 +14,45 @@ function RootComponent() {
     queryFn: fetchProjects,
   });
 
+  const router = useRouter();
+  const matchRoute = useMatchRoute();
+
+  // Get the current projectId from the route params if available
+  const currentProjectId =
+    router.state.matches.find(
+      (m) => m.routeId === "/projects/$projectsId" || m.routeId === "/projects_/$projectsId/backlog"
+    )?.params?.projectId ||
+    router.state.matches.find(
+      (m) => m.routeId === "/projects/$projectsId" || m.routeId === "/projects_/$projectsId/backlog"
+    )?.params?.projectsId;
+
   return (
     <>
       <div className="p-4 navbar">
-       
-        {/* Project links in a list */}
         <ul>
           <li>
-          <Link to="/">About</Link>
+            <Link to="/">About</Link>
           </li>
-          {data?.data?.map((project) => (
-            <li key={project.id}>
-              <Link
-                to="/projects/$projectId"
-                params={{ projectId: String(project.id) }}
-              >
-                {project.name}
-              </Link>
-            </li>
-          ))}
+          {data?.data?.map((project) => {
+            // Determine if this project link is active
+            const isActive =
+              String(project.id) === String(currentProjectId);
+
+            return (
+              <li key={project.id}>
+                <Link
+                  to="/projects/$projectsId"
+                  params={{ projectsId: String(project.id) }}
+                  style={{
+                    color: isActive ? "#3273dc" : undefined, // Bulma primary color
+                    fontWeight: isActive ? "bold" : undefined,
+                  }}
+                >
+                  {project.name}
+                </Link>
+              </li>
+            );
+          })}
         </ul>
       </div>
       <hr />
