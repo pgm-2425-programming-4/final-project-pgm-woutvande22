@@ -6,7 +6,7 @@ import { editTask } from "../../../data/editTask";
 const STATES = ["todo", "progress", "review", "done", "backlog"];
 
 export function TaskModal({ task, onClose}) {
-  const [editMode, setEditMode] = useState(true);
+  const [editMode, setEditMode] = useState(false); //zet edit mode when clicked
   const [title, setTitle] = useState("");
   const [description, setDescription] = useState("");
   const [currentState, setCurrentState] = useState("");

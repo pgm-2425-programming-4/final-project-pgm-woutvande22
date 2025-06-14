@@ -1,6 +1,6 @@
 import { API_URL, API_TOKEN } from "../constants/constants";
 
-export async function editTask(taskId, { state, title, description }) {
+export async function editTask(taskId, { state, title, description, tags }) {
   const result = await fetch(`${API_URL}/tasks/${taskId}`, {
     method: "PUT",
     headers: {
@@ -8,7 +8,12 @@ export async function editTask(taskId, { state, title, description }) {
       Authorization: `Bearer ${API_TOKEN}`,
     },
     body: JSON.stringify({
-      data: { state, title, description },
+      data: { 
+        state, 
+        title, 
+        description,
+        tags // This will be an array of tag IDs
+      },
     }),
   });
 
