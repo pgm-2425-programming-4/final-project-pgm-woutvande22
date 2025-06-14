@@ -2,14 +2,16 @@ import { useState, useEffect } from "react";
 import { Tag } from "../Tag/tag";
 import { useMutation, useQueryClient } from "@tanstack/react-query";
 import { editTask } from "../../../data/editTask";
+import { deleteTask } from "../../../data/deleteTask";
 
 const STATES = ["todo", "progress", "review", "done", "backlog"];
 
-export function TaskModal({ task, onClose}) {
+export function TaskModal({ task, onClose }) {
   const [editMode, setEditMode] = useState(false); //zet edit mode when clicked
   const [title, setTitle] = useState("");
   const [description, setDescription] = useState("");
   const [currentState, setCurrentState] = useState("");
+  const [isDeleteModalOpen, setIsDeleteModalOpen] = useState(false);
   const queryClient = useQueryClient();
 
   useEffect(() => {
@@ -31,9 +33,14 @@ export function TaskModal({ task, onClose}) {
     },
   });
 
-
-
-  if (!task) return null;
+  const deleteMutation = useMutation({
+    mutationFn: deleteTask,
+    onSuccess: () => {
+      queryClient.invalidateQueries({ queryKey: ["tasks"] });
+      queryClient.invalidateQueries({ queryKey: ["backlog"] });
+      onClose();
+    },
+  });
 
   const handleSave = () => {
     mutation.mutate({
@@ -44,106 +51,169 @@ export function TaskModal({ task, onClose}) {
     });
   };
 
+  const handleDelete = () => {
+    deleteMutation.mutate(task.documentId);
+  };
+
+  if (!task) return null;
+
   return (
-    <div className="modal is-active">
-      <div className="modal-background" onClick={onClose}></div>
-      <div className="modal-card">
-        <header className="modal-card-head">
-          <p className="modal-card-title">{editMode ? title : task.title}</p>
-          <button className="delete" aria-label="close" onClick={onClose}></button>
-        </header>
-        <section className="modal-card-body">
-          <p>
-            <strong>Title:</strong>{" "}
+    <>
+      <div className="modal is-active">
+        <div className="modal-background" onClick={onClose}></div>
+        <div className="modal-card">
+          <header className="modal-card-head">
+            <p className="modal-card-title">{editMode ? title : task.title}</p>
+            <button className="delete" aria-label="close" onClick={onClose}></button>
+          </header>
+          <section className="modal-card-body">
+            <p>
+              <strong>Title:</strong>{" "}
+              {editMode ? (
+                <input
+                  className="input"
+                  value={title}
+                  onChange={e => setTitle(e.target.value)}
+                  disabled={mutation.isPending}
+                />
+              ) : (
+                task.title
+              )}
+            </p>
+            <p>
+              <strong>Description:</strong>{" "}
+              {editMode ? (
+                <textarea
+                  className="textarea"
+                  value={description}
+                  onChange={e => setDescription(e.target.value)}
+                  disabled={mutation.isPending}
+                />
+              ) : (
+                task.description || <em>No description</em>
+              )}
+            </p>
+            <p>
+              <strong>State:</strong>{" "}
+              {editMode ? (
+                <select
+                  value={currentState}
+                  onChange={e => setCurrentState(e.target.value)}
+                  disabled={mutation.isPending}
+                >
+                  {STATES.map(state => (
+                    <option key={state} value={state}>
+                      {state}
+                    </option>
+                  ))}
+                </select>
+              ) : (
+                currentState
+              )}
+              {mutation.isPending && <span className="ml-2">Saving...</span>}
+            </p>
+            <p>
+              <strong>Project:</strong>{" "}
+              {task.project?.name || <em>No project</em>}
+            </p>
+            <div className="tags mt-3">
+              {task.tags?.length
+                ? task.tags.map(tag => (
+                    <Tag key={tag.id} title={tag.title} />
+                  ))
+                : <em>No tags</em>}
+            </div>
+            <p className="mt-3">
+              <strong>Created At:</strong>{" "}
+              {new Date(task.createdAt).toLocaleString()}
+            </p>
+            <p>
+              <strong>Updated At:</strong>{" "}
+              {new Date(task.updatedAt).toLocaleString()}
+            </p>
+          </section>
+          <footer className="modal-card-foot">
             {editMode ? (
-              <input
-                className="input"
-                value={title}
-                onChange={e => setTitle(e.target.value)}
-                disabled={mutation.isPending}
-              />
+              <>
+                <button
+                  className="button is-success"
+                  onClick={handleSave}
+                  disabled={mutation.isPending || deleteMutation.isPending}
+                >
+                  Save
+                </button>
+                <button
+                  className="button"
+                  onClick={() => setEditMode(false)}
+                  disabled={mutation.isPending || deleteMutation.isPending}
+                >
+                  Cancel
+                </button>
+              </>
             ) : (
-              task.title
+              <>
+                <button 
+                  className="button" 
+                  onClick={() => setEditMode(true)}
+                  disabled={deleteMutation.isPending}
+                >
+                  Edit
+                </button>
+                <button 
+                  className="button is-danger"
+                  onClick={() => setIsDeleteModalOpen(true)}
+                  disabled={deleteMutation.isPending}
+                >
+                  Delete
+                </button>
+              </>
             )}
-          </p>
-          <p>
-            <strong>Description:</strong>{" "}
-            {editMode ? (
-              <textarea
-                className="textarea"
-                value={description}
-                onChange={e => setDescription(e.target.value)}
-                disabled={mutation.isPending}
-              />
-            ) : (
-              task.description || <em>No description</em>
-            )}
-          </p>
-          <p>
-            <strong>State:</strong>{" "}
-            {editMode ? (
-              <select
-                value={currentState}
-                onChange={e => setCurrentState(e.target.value)}
-                disabled={mutation.isPending}
+            <button 
+              className="button" 
+              onClick={onClose}
+              disabled={mutation.isPending || deleteMutation.isPending}
+            >
+              Close
+            </button>
+          </footer>
+        </div>
+      </div>
+
+      {/* Delete Modal */}
+      {isDeleteModalOpen && (
+        <div className="modal is-active">
+          <div className="modal-background" onClick={() => setIsDeleteModalOpen(false)}></div>
+          <div className="modal-card">
+            <header className="modal-card-head">
+              <p className="modal-card-title">Delete Task</p>
+              <button 
+                className="delete" 
+                aria-label="close"
+                onClick={() => setIsDeleteModalOpen(false)}
+              ></button>
+            </header>
+            <section className="modal-card-body">
+              <p>This action cannot be undone. Are you sure you want to delete this task?</p>
+              <p className="has-text-weight-bold mt-2">{task.title}</p>
+            </section>
+            <footer className="modal-card-foot">
+              <button 
+                className="button is-danger" 
+                onClick={handleDelete}
+                disabled={deleteMutation.isPending}
               >
-                {STATES.map(state => (
-                  <option key={state} value={state}>
-                    {state}
-                  </option>
-                ))}
-              </select>
-            ) : (
-              currentState
-            )}
-            {mutation.isPending && <span className="ml-2">Saving...</span>}
-          </p>
-          <p>
-            <strong>Project:</strong>{" "}
-            {task.project?.name || <em>No project</em>}
-          </p>
-          <div className="tags mt-3">
-            {task.tags?.length
-              ? task.tags.map(tag => (
-                  <Tag key={tag.id} title={tag.title} />
-                ))
-              : <em>No tags</em>}
-          </div>
-          <p className="mt-3">
-            <strong>Created At:</strong>{" "}
-            {new Date(task.createdAt).toLocaleString()}
-          </p>
-          <p>
-            <strong>Updated At:</strong>{" "}
-            {new Date(task.updatedAt).toLocaleString()}
-          </p>
-        </section>
-        <footer className="modal-card-foot">
-          {editMode ? (
-            <>
-              <button
-                className="button is-success"
-                onClick={handleSave}
-                disabled={mutation.isPending}
-              >
-                Save
+                {deleteMutation.isPending ? "Deleting..." : "Delete Task"}
               </button>
-              <button
-                className="button"
-                onClick={() => setEditMode(false)}
-                disabled={mutation.isPending}
+              <button 
+                className="button" 
+                onClick={() => setIsDeleteModalOpen(false)}
               >
                 Cancel
               </button>
-            </>
-          ) : (
-            <button className="button" onClick={() => setEditMode(true)}>
-              Edit
-            </button>
-          )}
-          <button className="button" onClick={onClose}>Close</button>
-        </footer>
-      </div>
-    </div>
+            </footer>
+          </div>
+        </div>
+      )}
+    </>
   );
 }
