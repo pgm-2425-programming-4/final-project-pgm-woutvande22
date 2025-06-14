@@ -5,6 +5,7 @@ import { TaskCard } from '../../components/TaskCard/TaskCard'
 import { useState } from 'react'
 import { TaskSearchBar } from '../../components/TaskSearchBar';
 import { fetchTags } from '../../data/fetchTags';
+import { TagDropdown } from '../../components/TagDropdown';
 
 export const Route = createFileRoute('/projects/$projectsId')({
   component: RouteComponent,
@@ -66,17 +67,12 @@ function RouteComponent() {
       <TaskSearchBar value={search} onChange={setSearch} />
       </div>
       <div style={{ margin: "1rem 0" }}>
-        <select
-          className="input"
-          style={{ maxWidth: 300 }}
+        <TagDropdown
+          tags={tags}
           value={selectedTag}
-          onChange={e => setSelectedTag(e.target.value)}
-        >
-          <option value="">All tags</option>
-          {tags.map(tag => (
-            <option key={tag.id} value={tag.id}>{tag.title}</option>
-          ))}
-        </select>
+          onChange={setSelectedTag}
+          placeholder="Filter by tag"
+        />
       </div>
       <Link to="/projects/$projectsId/backlog" params={{ projectsId }}>
         Backlog
