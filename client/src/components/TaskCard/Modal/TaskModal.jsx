@@ -47,7 +47,7 @@ export function TaskModal({ task, onClose }) {
             </select>
             {mutation.isPending && <span className="ml-2">Saving...</span>}
           </p>
-          <p><strong>Project:</strong> {task.project?.title || <em>No project</em>}</p>
+          <p><strong>Project:</strong> {task.project?.name || <em>No project</em>}</p>
           <div className="tags mt-3">
             {task.tags?.length
               ? task.tags.map((tag) => (
