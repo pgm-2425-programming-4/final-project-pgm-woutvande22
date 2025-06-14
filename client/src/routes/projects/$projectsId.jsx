@@ -1,6 +1,7 @@
 import { createFileRoute, Link } from '@tanstack/react-router'
 import { useQuery } from '@tanstack/react-query'
 import { fetchTasksByProjectId } from '../../data/fetchTaskByProject'
+import { fetchProjectsById } from '../../data/fetchProjectsById'
 import { TaskCard } from '../../components/TaskCard/TaskCard'
 import { useState } from 'react'
 import { TaskSearchBar } from '../../components/TaskSearchBar';
@@ -32,6 +33,14 @@ function renderTaskCards(tasks) {
 
 function RouteComponent() {
   const { projectsId } = Route.useParams();
+
+  // Fetch project info
+  const { data: projectData, isLoading: projectLoading } = useQuery({
+    queryKey: ["project", projectsId],
+    queryFn: () => fetchProjectsById(projectsId),
+  });
+
+  // Fetch tasks
   const { data } = useQuery({
     queryKey: ["tasks", projectsId],
     queryFn: () => fetchTasksByProjectId(projectsId),
@@ -60,11 +69,18 @@ function RouteComponent() {
     return matchesSearch && matchesTag;
   });
 
+  // Get project title
+  const projectTitle = projectData?.data?.[0]?.name;
+
   return (
     <div>
-      
+      {projectLoading ? (
+        <h1 className="title is-2">Loading project...</h1>
+      ) : (
+        <h1 className="title is-2">{projectTitle}</h1>
+      )}
       <div style={{ margin: "1rem 0" }}>
-      <TaskSearchBar value={search} onChange={setSearch} />
+        <TaskSearchBar value={search} onChange={setSearch} />
       </div>
       <div style={{ margin: "1rem 0" }}>
         <TagDropdown
