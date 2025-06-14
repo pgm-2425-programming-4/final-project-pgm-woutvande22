@@ -44,12 +44,12 @@ function RouteComponent() {
   });
 
   const [search, setSearch] = useState("");
-  const [selectedTag, setSelectedTag] = useState(""); // Tag filter state
+  const [selectedTag, setSelectedTag] = useState("");
 
   const tasks = data?.data || [];
   const tags = tagsData?.data || [];
 
-  // Filter tasks by search and selected tag
+  // Filter tasks based on search and selected tag
   const filteredTasks = tasks.filter((task) => {
     const matchesSearch = search
       ? (task.title || "").toLowerCase().includes(search.toLowerCase())
