@@ -37,13 +37,13 @@ function RouteComponent() {
   const { projectsId } = Route.useParams();
   
 
-  // Fetch project info
+  // Fetch project by id
   const { data: projectData, isLoading: projectLoading } = useQuery({
     queryKey: ["project", projectsId],
     queryFn: () => fetchProjectsById(projectsId),
   });
 
-  // Fetch tasks
+  // Fetch tasks by project id
   const { data } = useQuery({
     queryKey: ["tasks", projectsId],
     queryFn: () => fetchTasksByProjectId(projectsId),
