@@ -58,4 +58,12 @@
       cursor: not-allowed;
     }
   }
+
+  & .pagination-select{
+    position: relative;
+    display: inline-block;
+
+    height: 2rem;
+    border-radius: 4px;
+  }
 }

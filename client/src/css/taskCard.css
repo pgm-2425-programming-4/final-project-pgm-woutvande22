@@ -48,7 +48,7 @@
     transition:
       all 0.3s ease,
       transform 0.2s ease;
-
+    max-width: 100%;
     &:hover {
       transform: translateY(-2px);
     }
