@@ -7,6 +7,8 @@ import { useState } from 'react'
 import { TaskSearchBar } from '../../components/TaskSearchBar';
 import { fetchTags } from '../../data/fetchTags';
 import { TagDropdown } from '../../components/TagDropdown';
+import { AddTask } from '../../components/AddTask';
+
 
 export const Route = createFileRoute('/projects/$projectsId')({
   component: RouteComponent,
@@ -33,6 +35,7 @@ function renderTaskCards(tasks) {
 
 function RouteComponent() {
   const { projectsId } = Route.useParams();
+  
 
   // Fetch project info
   const { data: projectData, isLoading: projectLoading } = useQuery({
@@ -54,6 +57,7 @@ function RouteComponent() {
 
   const [search, setSearch] = useState("");
   const [selectedTag, setSelectedTag] = useState("");
+  const [showAddModal, setShowAddModal] = useState(false);
 
   const tasks = data?.data || [];
   const tags = tagsData?.data || [];
@@ -87,12 +91,26 @@ function RouteComponent() {
           tags={tags}
           value={selectedTag}
           onChange={setSelectedTag}
-          placeholder="Filter by tag"
+          placeholder="All"
         />
       </div>
       <Link to="/projects/$projectsId/backlog" params={{ projectsId }}>
         Backlog
       </Link>
+      <button
+        className="button is-primary"
+        style={{ marginBottom: "1rem" }}
+        onClick={() => setShowAddModal(true)}
+      >
+        + Add Task
+      </button>
+      {showAddModal && (
+        <AddTask
+          projectId={projectsId}
+          tags={tags}
+          onClose={() => setShowAddModal(false)}
+        />
+      )}
       {renderTaskCards(filteredTasks)}
     </div>
   );
