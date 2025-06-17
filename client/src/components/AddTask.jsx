@@ -1,7 +1,6 @@
 import React, { useState } from "react";
 import { useMutation, useQueryClient } from "@tanstack/react-query";
 import { postTask } from "../data/postTask";
-import { TagDropdown } from "./TagDropdown";
 
 export function AddTask({ projectId, tags, onClose }) {
   const [title, setTitle] = useState("");
@@ -18,6 +17,14 @@ export function AddTask({ projectId, tags, onClose }) {
     },
   });
 
+  const handleTagClick = (tagId) => {
+    setSelectedTags((prev) =>
+      prev.includes(tagId)
+        ? prev.filter((id) => id !== tagId)
+        : [...prev, tagId]
+    );
+  };
+
   const handleSubmit = (e) => {
     e.preventDefault();
     mutation.mutate({
@@ -25,7 +32,7 @@ export function AddTask({ projectId, tags, onClose }) {
       description,
       state,
       projectId,
-      tags: selectedTags.length ? selectedTags : [],
+      tags: selectedTags,
     });
   };
 
@@ -81,22 +88,21 @@ export function AddTask({ projectId, tags, onClose }) {
             </div>
             <div className="field">
               <label className="label">Tags</label>
-              <div className="control">
-                <TagDropdown
-                  tags={tags}
-                  value={selectedTags}
-                  onChange={val =>
-                    setSelectedTags(
-                      Array.isArray(val)
-                        ? val
-                        : val
-                        ? [val]
-                        : []
-                    )
-                  }
-                  multiple
-                  placeholder="Select tags"
-                />
+              <div className="tags are-medium" style={{ flexWrap: "wrap" }}>
+                {tags.map(tag => (
+                  <span
+                    key={tag.id}
+                    className={
+                      "tag"
+                      + (selectedTags.includes(tag.id) ? " is-primary" : " is-light")
+                      + " clickable"
+                    }
+                    style={{ cursor: "pointer", margin: "0.25em" }}
+                    onClick={() => handleTagClick(tag.id)}
+                  >
+                    {tag.title || tag.name}
+                  </span>
+                ))}
               </div>
             </div>
             {mutation.isError && (
