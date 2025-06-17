@@ -1,0 +1,124 @@
+.modal {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100vw;
+    height: 100vh;
+    z-index: 1000;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+  
+  .modal-background {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100vw;
+    height: 100vh;
+    background: rgba(30, 30, 30, 0.5);
+    z-index: 1;
+  }
+  
+  .modal-card {
+    position: relative;
+    z-index: 2;
+    background: #fff;
+    border-radius: 12px;
+    box-shadow: 0 8px 32px rgba(0,0,0,0.18);
+    max-width: 480px;
+    width: 100%;
+    padding: 2rem 2rem 1.5rem 2rem;
+    display: flex;
+    flex-direction: column;
+    gap: 1.2rem;
+    animation: modal-pop 0.2s cubic-bezier(.4,2,.6,1) both;
+  }
+
+  .modal-card-body {
+    flex: 1;
+    overflow-y: auto;
+    max-height: 60vh;
+  }
+  
+  @keyframes modal-pop {
+    from {
+      opacity: 0;
+      transform: translateY(40px) scale(0.96);
+    }
+    to {
+      opacity: 1;
+      transform: translateY(0) scale(1);
+    }
+  }
+  
+  .modal-card-head {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    border-bottom: 1px solid #eee;
+    padding-bottom: 0.5rem;
+  }
+  
+  .modal-card-title {
+    font-size: 1.3rem;
+    font-weight: bold;
+    margin: 0;
+  }
+  
+  .button--close, .delete {
+    background: none;
+    border: none;
+    font-size: 1.5rem;
+    color: #888;
+    cursor: pointer;
+    transition: color 0.2s;
+  }
+  .button--close:hover, .delete:hover {
+    color: #e74c3c;
+  }
+  
+  .modal-card-body {
+    padding: 1rem 0;
+  }
+  
+  .field {
+    margin-bottom: 1rem;
+  }
+  
+  .input, .textarea, select {
+    width: 100%;
+    padding: 0.5rem;
+    border-radius: 6px;
+    border: 1px solid #ddd;
+    margin-top: 0.3rem;
+    font-size: 1rem;
+  }
+  
+  .tags {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 0.4em;
+    margin-top: 0.5em;
+  }
+  
+  .tag {
+    background: #f3f3f3;
+    border-radius: 4px;
+    padding: 0.3em 0.8em;
+    font-size: 0.95em;
+    cursor: pointer;
+    transition: background 0.2s;
+  }
+  .tag.is-primary {
+    background: #a3d8a1;
+    color: #1a3d1a;
+  }
+  .tag.is-light {
+    background: #eaeaea;
+    color: #444;
+  }
+  .tag.clickable:hover {
+    background: #d1e7dd;
+  }

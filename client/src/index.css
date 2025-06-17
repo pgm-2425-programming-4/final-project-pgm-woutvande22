@@ -4,6 +4,7 @@
 @import url("../src/css/container.css");
 @import url("../src/css/tagDropdown.css");
 @import url("../src/css/button.css");
+@import url("../src/css/modal.css");
 
 body {
   margin: 0;
