@@ -1,4 +1,6 @@
 .nav {
+  border-right: 1px solid black;
+  padding-right: 1rem;
   & .nav__list {
     display: flex;
     flex-direction: column;

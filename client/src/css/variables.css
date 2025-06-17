@@ -5,6 +5,7 @@
   --button-text-color: var(--background-color);
   --button-background-color: hsl(256, 74%, 72%);
   --button-background-hover: hsl(256, 66%, 77%);
+  --button-background-not: hsl(257, 66%, 86%);
 
   --button-secondary-color: hsl(100, 56%, 51%);
   --button-secondary-hover: hsl(100, 50%, 66%);

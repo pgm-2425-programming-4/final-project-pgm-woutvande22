@@ -1,0 +1,16 @@
+.about {
+  background-color: var(--card-color);
+  padding: 20px;
+  border-radius: 8px;
+  width: 80%;
+  margin: 0 auto;
+  font-family: Arial, sans-serif;
+
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+
+  & .about__author {
+    font-style: italic;
+  }
+}

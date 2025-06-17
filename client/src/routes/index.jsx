@@ -6,9 +6,10 @@ export const Route = createFileRoute("/")({
 
 function RouteComponent() {
   return (
-    <div>
-      <p>Welcome to my kanban board. </p>
-      <p>"Author Vanderbauwhede Wout"</p>
+    <div className="about">
+      <h1 className="about__title">Wout's React Kanban board</h1>
+      <p className="about__text">Welcome to my kanban board. </p>
+      <p className="about__author">"Author Vanderbauwhede Wout"</p>
     </div>
   );
 }
