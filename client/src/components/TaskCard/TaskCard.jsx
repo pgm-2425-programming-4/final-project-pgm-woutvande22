@@ -30,7 +30,7 @@ export function TaskCard({ title, tasks, emptyText, className }) {
                 <div className="card" onClick={() => handleCardClick(task)}>
                   <div>
                     <p>{task.title}</p>
-                    <div className="tags">
+                    <div className="card__tags">
                       {task.tags?.map((tag) => (
                         <Tag key={tag.id} title={tag.title} />
                       ))}

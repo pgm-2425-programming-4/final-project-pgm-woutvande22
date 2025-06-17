@@ -6,6 +6,7 @@
 @import url("../src/css/button.css");
 @import url("../src/css/modal.css");
 @import url("../src/css/taskCard.css");
+@import url("../src/css/tags.css");
 
 body {
   margin: 0;
