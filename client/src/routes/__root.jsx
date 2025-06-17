@@ -4,7 +4,6 @@ import {
   createRootRoute,
   Link,
   useRouter,
-  useMatchRoute,
 } from "@tanstack/react-router";
 import { TanStackRouterDevtools } from "@tanstack/react-router-devtools";
 import { fetchProjects } from "../data/fetchProjects.js";
@@ -21,7 +20,7 @@ function RootComponent() {
   });
 
   const router = useRouter();
-  const matchRoute = useMatchRoute();
+
 
   // Get the current projectId from the route params if available
   const currentProjectId =
@@ -46,8 +45,6 @@ function RootComponent() {
             </Link>
           </li>
           {data?.data?.map((project) => {
-            // Determine if this project link is active
-            const isActive = String(project.id) === String(currentProjectId);
 
             return (
               <li key={project.id} className="nav__item">
