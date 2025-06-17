@@ -43,10 +43,7 @@ function RootComponent() {
                 <Link className="nav__link"
                   to="/projects/$projectsId"
                   params={{ projectsId: String(project.id) }}
-                  style={{
-                    color: isActive ? "#3273dc" : undefined, //sets active color
-                    fontWeight: isActive ? "bold" : undefined,
-                  }}
+                  
                 >
                   {project.name}
                 </Link>
