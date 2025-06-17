@@ -21,7 +21,7 @@ export function AddTask({ projectId, tags, onClose }) {
     setSelectedTags((prev) =>
       prev.includes(tagId)
         ? prev.filter((id) => id !== tagId)
-        : [...prev, tagId]
+        : [...prev, tagId],
     );
   };
 
@@ -52,7 +52,7 @@ export function AddTask({ projectId, tags, onClose }) {
                 <input
                   className="input"
                   value={title}
-                  onChange={e => setTitle(e.target.value)}
+                  onChange={(e) => setTitle(e.target.value)}
                   required
                   disabled={mutation.isPending}
                 />
@@ -64,7 +64,7 @@ export function AddTask({ projectId, tags, onClose }) {
                 <textarea
                   className="textarea"
                   value={description}
-                  onChange={e => setDescription(e.target.value)}
+                  onChange={(e) => setDescription(e.target.value)}
                   disabled={mutation.isPending}
                 />
               </div>
@@ -75,7 +75,7 @@ export function AddTask({ projectId, tags, onClose }) {
                 <select
                   className="input"
                   value={state}
-                  onChange={e => setState(e.target.value)}
+                  onChange={(e) => setState(e.target.value)}
                   disabled={mutation.isPending}
                 >
                   <option value="todo">To do</option>
@@ -89,13 +89,15 @@ export function AddTask({ projectId, tags, onClose }) {
             <div className="field">
               <label className="label">Tags</label>
               <div className="tags are-medium" style={{ flexWrap: "wrap" }}>
-                {tags.map(tag => (
+                {tags.map((tag) => (
                   <span
                     key={tag.id}
                     className={
-                      "tag"
-                      + (selectedTags.includes(tag.id) ? " is-primary" : " is-light")
-                      + " clickable"
+                      "tag" +
+                      (selectedTags.includes(tag.id)
+                        ? " is-primary"
+                        : " is-light") +
+                      " clickable"
                     }
                     style={{ cursor: "pointer", margin: "0.25em" }}
                     onClick={() => handleTagClick(tag.id)}

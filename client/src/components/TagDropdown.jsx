@@ -9,7 +9,10 @@ export function TagDropdown({
 }) {
   const handleChange = (e) => {
     if (multiple) {
-      const selected = Array.from(e.target.selectedOptions, (option) => option.value);
+      const selected = Array.from(
+        e.target.selectedOptions,
+        (option) => option.value,
+      );
       onChange(selected);
     } else {
       onChange(e.target.value);

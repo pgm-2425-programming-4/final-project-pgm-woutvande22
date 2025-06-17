@@ -5,7 +5,7 @@ import { Pagination } from "./Pagination/Pagination";
 import { useQuery } from "@tanstack/react-query";
 const PAGE_SIZE_OPTIONS = [5, 10, 20, 50];
 
-export function PaginatedBacklog( {projectId}) {
+export function PaginatedBacklog({ projectId }) {
   const [currentPage, setCurrentPage] = useState(1);
   const [pageCount, setPageCount] = useState(1);
   const [pageSize, setPageSize] = useState(PAGE_SIZE_OPTIONS[1]);
@@ -46,9 +46,8 @@ export function PaginatedBacklog( {projectId}) {
   return (
     <>
       <div>
-        
-          <Backlog backlog={backlog} total={data?.meta?.pagination?.total ?? 0} />
-        
+        <Backlog backlog={backlog} total={data?.meta?.pagination?.total ?? 0} />
+
         <Pagination
           currentPage={currentPage}
           pageCount={pageCount}

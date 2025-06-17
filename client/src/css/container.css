@@ -1,9 +1,9 @@
-.container{
-    margin: auto 2rem;
-   & .container__flex{
+.container {
+  margin: auto 2rem;
+  & .container__flex {
     display: flex;
     align-items: baseline;
-   justify-content: space-between;
-   margin-bottom: 2rem;
-   }
+    justify-content: space-between;
+    margin-bottom: 2rem;
+  }
 }

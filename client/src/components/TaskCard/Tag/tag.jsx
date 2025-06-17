@@ -1,7 +1,3 @@
 export function Tag({ title }) {
-    return (
-      <span className="tag">
-        {title}
-      </span>
-    );
-  }
+  return <span className="tag">{title}</span>;
+}

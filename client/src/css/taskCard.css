@@ -1,54 +1,56 @@
-.task__card{
-    display: grid;
-    grid-template-columns: 1fr 1fr 1fr 1fr;
-    gap: 2rem;
+.task__card {
+  display: grid;
+  grid-template-columns: 1fr 1fr 1fr 1fr;
+  gap: 2rem;
 
-    & .column__title{
-        font-size: var(--text-size-h2);
-        text-decoration: underline;
-        margin-bottom: 1rem;
-        color: var(--text-color);
-        text-align: left;
+  & .column__title {
+    font-size: var(--text-size-h2);
+    text-decoration: underline;
+    margin-bottom: 1rem;
+    color: var(--text-color);
+    text-align: left;
 
-        &::before{
-            content: "";
-            display: inline-block;
-            width: 0.9em;
-            height: 0.9em;
-            margin-right: 0.6em;
-            border-radius: 50%;
-            background: var(--text-color);
-            vertical-align: middle;
-        }
+    &::before {
+      content: "";
+      display: inline-block;
+      width: 0.9em;
+      height: 0.9em;
+      margin-right: 0.6em;
+      border-radius: 50%;
+      background: var(--text-color);
+      vertical-align: middle;
     }
+  }
 
-    & .todo::before{
-       background-color: hsl(204, 70%, 53%);
+  & .todo::before {
+    background-color: hsl(204, 70%, 53%);
+  }
+
+  & .progress::before {
+    background-color: hsl(39, 100%, 56%);
+  }
+
+  & .review::before {
+    background-color: hsl(30, 100%, 50%);
+  }
+
+  & .done::before {
+    background-color: hsl(120, 100%, 40%);
+  }
+
+  & .card {
+    border: solid 1px var(--text-color);
+    border-radius: 0.5rem;
+    margin-bottom: 1rem;
+    background-color: var(--card-color);
+    cursor: pointer;
+    box-shadow: rgba(0, 0, 0, 0.16) 0px 1px 4px;
+    transition:
+      all 0.3s ease,
+      transform 0.2s ease;
+
+    &:hover {
+      transform: translateY(-2px);
     }
-
-    & .progress::before{
-       background-color: hsl(39, 100%, 56%);
-    }
-
-    & .review::before{
-       background-color: hsl(30, 100%, 50%);
-    }
-
-    & .done::before{
-       background-color: hsl(120, 100%, 40%);
-    }
-
-    & .card{
-        border: solid 1px var(--text-color);
-        border-radius: 0.5rem;
-        margin-bottom: 1rem;
-        background-color: var(--card-color);
-        cursor: pointer;
-        box-shadow: rgba(0, 0, 0, 0.16) 0px 1px 4px;
-        transition: all 0.3s ease, transform 0.2s ease;
-
-        &:hover{
-            transform: translateY(-2px);
-        }
-    }    
+  }
 }

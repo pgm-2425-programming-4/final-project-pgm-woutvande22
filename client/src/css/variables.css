@@ -1,19 +1,18 @@
-:root{
-    --background-color: hsl(211, 17%, 97%);
-    --card-color: hsl(0, 0%, 100%);
-    --text-color:hsl(218, 52%, 5%);
-    --button-text-color: var(--background-color);
-    --button-background-color:hsl(256, 74%, 72%);
-    --button-background-hover:hsl(256, 66%, 77%);
+:root {
+  --background-color: hsl(211, 17%, 97%);
+  --card-color: hsl(0, 0%, 100%);
+  --text-color: hsl(218, 52%, 5%);
+  --button-text-color: var(--background-color);
+  --button-background-color: hsl(256, 74%, 72%);
+  --button-background-hover: hsl(256, 66%, 77%);
 
-    --button-secondary-color: hsl(100, 56%, 51%);
-    --button-secondary-hover: hsl(100, 50%, 66%);
+  --button-secondary-color: hsl(100, 56%, 51%);
+  --button-secondary-hover: hsl(100, 50%, 66%);
 
-    --button-border-radius: 0.25rem;
+  --button-border-radius: 0.25rem;
 
-
-     --text-size-side-nav: 0.875rem;
-     --text-size-base: 1rem; 
-     --text-size-h1: 2rem;
-     --text-size-h2: 1.5rem; 
+  --text-size-side-nav: 0.875rem;
+  --text-size-base: 1rem;
+  --text-size-h1: 2rem;
+  --text-size-h2: 1.5rem;
 }
