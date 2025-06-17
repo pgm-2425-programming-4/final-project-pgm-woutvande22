@@ -3,7 +3,6 @@ import {
   Outlet,
   createRootRoute,
   Link,
-  useRouter,
 } from "@tanstack/react-router";
 import { TanStackRouterDevtools } from "@tanstack/react-router-devtools";
 import { fetchProjects } from "../data/fetchProjects.js";
@@ -18,22 +17,6 @@ function RootComponent() {
     queryKey: ["projects"],
     queryFn: fetchProjects,
   });
-
-  const router = useRouter();
-
-
-  // Get the current projectId from the route params if available
-  const currentProjectId =
-    router.state.matches.find(
-      (m) =>
-        m.routeId === "/projects/$projectsId" ||
-        m.routeId === "/projects_/$projectsId/backlog",
-    )?.params?.projectId ||
-    router.state.matches.find(
-      (m) =>
-        m.routeId === "/projects/$projectsId" ||
-        m.routeId === "/projects_/$projectsId/backlog",
-    )?.params?.projectsId;
 
   return (
     <>
