@@ -16,19 +16,20 @@ export const Route = createFileRoute('/projects/$projectsId')({
 
 function renderTaskCards(tasks) {
   const states = [
-    { state: "todo", title: "To do", emptyText: "No todo tasks" },
-    { state: "progress", title: "In progress", emptyText: "No tasks in progress" },
-    { state: "review", title: "In Review", emptyText: "No tasks in review" },
-    { state: "done", title: "Done", emptyText: "No done tasks" },
+    { state: "todo", title: "To do", emptyText: "No todo tasks", className: "todo" },
+    { state: "progress", title: "In progress", emptyText: "No tasks in progress", className: "progress" },
+    { state: "review", title: "In Review", emptyText: "No tasks in review", className: "review" },
+    { state: "done", title: "Done", emptyText: "No done tasks", className: "done" },
   ];
 
 
-  return states.map(({ state, title, emptyText }) => (
+  return states.map(({ state, title, emptyText, className }) => (
     <TaskCard
       key={state}
       title={title}
       tasks={tasks.filter((task) => task.state === state)}
       emptyText={emptyText}
+      className={className}
     />
   ));
 }
@@ -113,7 +114,9 @@ function RouteComponent() {
           onClose={() => setShowAddModal(false)}
         />
       )}
-      {renderTaskCards(filteredTasks)}
+      <section className='task__card'>
+        {renderTaskCards(filteredTasks)}
+        </section>
     </div>
   );
 }
