@@ -77,33 +77,35 @@ function RouteComponent() {
   const projectTitle = projectData?.data?.[0]?.name;
 
   return (
-    <div>
-      {projectLoading ? (
-        <h1 className="title is-2">Loading project...</h1>
-      ) : (
-        <h1 className="title is-2">{projectTitle}</h1>
-      )}
-      <div style={{ margin: "1rem 0" }}>
-        <TaskSearchBar value={search} onChange={setSearch} />
+    <div className='container'>
+      <div className='container__flex'>
+        {projectLoading ? (
+          <h1 className="title is-2">Loading project...</h1>
+        ) : (
+          <h1 className="title is-2">{projectTitle}</h1>
+        )}
+        
+          <TaskSearchBar value={search} onChange={setSearch} />
+        
+        
+          <TagDropdown
+            tags={tags}
+            value={selectedTag}
+            onChange={setSelectedTag}
+            placeholder="All"
+          />
+        
+        <Link to="/projects/$projectsId/backlog" params={{ projectsId }}>
+          Backlog
+        </Link>
+        <button
+          className="button is-primary"
+          style={{ marginBottom: "1rem" }}
+          onClick={() => setShowAddModal(true)}
+        >
+          + Add Task
+        </button>
       </div>
-      <div style={{ margin: "1rem 0" }}>
-        <TagDropdown
-          tags={tags}
-          value={selectedTag}
-          onChange={setSelectedTag}
-          placeholder="All"
-        />
-      </div>
-      <Link to="/projects/$projectsId/backlog" params={{ projectsId }}>
-        Backlog
-      </Link>
-      <button
-        className="button is-primary"
-        style={{ marginBottom: "1rem" }}
-        onClick={() => setShowAddModal(true)}
-      >
-        + Add Task
-      </button>
       {showAddModal && (
         <AddTask
           projectId={projectsId}

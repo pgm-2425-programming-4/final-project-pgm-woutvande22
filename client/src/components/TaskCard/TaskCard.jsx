@@ -14,7 +14,7 @@ export function TaskCard({ title, tasks, emptyText }) {
   };
 
   return (
-    <div className="mb-5">
+    <div>
       <h2 className="title is-3">{title}</h2>
       <div className="columns is-multiline">
         {tasks.length === 0 ? (

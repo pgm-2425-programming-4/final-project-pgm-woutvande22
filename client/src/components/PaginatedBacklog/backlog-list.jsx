@@ -45,16 +45,18 @@ export function PaginatedBacklog( {projectId}) {
 
   return (
     <>
-      <div style={{ marginBottom: "2rem" }}>
-        <Backlog backlog={backlog} total={data?.meta?.pagination?.total ?? 0} />
+      <div>
+        
+          <Backlog backlog={backlog} total={data?.meta?.pagination?.total ?? 0} />
+        
+        <Pagination
+          currentPage={currentPage}
+          pageCount={pageCount}
+          pageSize={pageSize}
+          onPageChanged={handlePageChanged}
+          onPageSizeChanged={handlePageSizeChanged}
+        />
       </div>
-      <Pagination
-        currentPage={currentPage}
-        pageCount={pageCount}
-        pageSize={pageSize}
-        onPageChanged={handlePageChanged}
-        onPageSizeChanged={handlePageSizeChanged}
-      />
     </>
   );
 }

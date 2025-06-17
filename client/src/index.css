@@ -1,6 +1,7 @@
 @import url("../src/css/reset.css");
 @import url("../src/css/variables.css");
 @import url("../src/css/nav.css");
+@import url("../src/css/container.css");
 
 body {
   margin: 0;
