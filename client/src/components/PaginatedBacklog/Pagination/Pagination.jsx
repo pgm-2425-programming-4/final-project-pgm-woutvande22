@@ -83,6 +83,7 @@ export function Pagination({
 
         <div className="select" style={{ marginRight: "2rem" }}>
           <select
+            className="pagination-select"
             defaultValue={pageSize}
             onChange={(event) => onPageSizeChanged(event.target.value)}
           >
