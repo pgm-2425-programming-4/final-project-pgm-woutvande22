@@ -26,7 +26,7 @@ export function TaskModal({ task, onClose }) {
       setTitle(task.title);
       setDescription(task.description);
       setCurrentState(task.state);
-      setSelectedTags(task.tags ? task.tags.map(tag => tag.id) : []);
+      setSelectedTags(task.tags ? task.tags.map((tag) => tag.id) : []);
     }
   }, [task]);
 
@@ -56,7 +56,7 @@ export function TaskModal({ task, onClose }) {
     setSelectedTags((prev) =>
       prev.includes(tagId)
         ? prev.filter((id) => id !== tagId)
-        : [...prev, tagId]
+        : [...prev, tagId],
     );
   };
 
@@ -66,7 +66,13 @@ export function TaskModal({ task, onClose }) {
       <div className="modal-card">
         <header className="modal-card-head">
           <p className="modal-card-title">{editMode ? title : task.title}</p>
-          <button className="delete" aria-label="close" onClick={onClose}></button>
+          <button
+            className="button--close"
+            aria-label="close"
+            onClick={onClose}
+          >
+            x
+          </button>
         </header>
         <section className="modal-card-body">
           <p>
@@ -75,7 +81,7 @@ export function TaskModal({ task, onClose }) {
               <input
                 className="input"
                 value={title}
-                onChange={e => setTitle(e.target.value)}
+                onChange={(e) => setTitle(e.target.value)}
                 disabled={mutation.isPending}
               />
             ) : (
@@ -88,7 +94,7 @@ export function TaskModal({ task, onClose }) {
               <textarea
                 className="textarea"
                 value={description}
-                onChange={e => setDescription(e.target.value)}
+                onChange={(e) => setDescription(e.target.value)}
                 disabled={mutation.isPending}
               />
             ) : (
@@ -100,10 +106,10 @@ export function TaskModal({ task, onClose }) {
             {editMode ? (
               <select
                 value={currentState}
-                onChange={e => setCurrentState(e.target.value)}
+                onChange={(e) => setCurrentState(e.target.value)}
                 disabled={mutation.isPending}
               >
-                {STATES.map(state => (
+                {STATES.map((state) => (
                   <option key={state} value={state}>
                     {state}
                   </option>
@@ -122,13 +128,15 @@ export function TaskModal({ task, onClose }) {
             <strong>Tags:</strong>
             {editMode ? (
               <div className="tags are-medium" style={{ flexWrap: "wrap" }}>
-                {tags.map(tag => (
+                {tags.map((tag) => (
                   <span
                     key={tag.id}
                     className={
-                      "tag"
-                      + (selectedTags.includes(tag.id) ? " is-primary" : " is-light")
-                      + " clickable"
+                      "tag" +
+                      (selectedTags.includes(tag.id)
+                        ? " is-primary"
+                        : " is-light") +
+                      " clickable"
                     }
                     style={{ cursor: "pointer", margin: "0.25em" }}
                     onClick={() => handleTagClick(tag.id)}
@@ -139,35 +147,27 @@ export function TaskModal({ task, onClose }) {
               </div>
             ) : (
               <div className="tags mt-3">
-                {task.tags?.length
-                  ? task.tags.map(tag => (
-                      <Tag key={tag.id} title={tag.title} />
-                    ))
-                  : <em>No tags</em>}
+                {task.tags?.length ? (
+                  task.tags.map((tag) => <Tag key={tag.id} title={tag.title} />)
+                ) : (
+                  <em>No tags</em>
+                )}
               </div>
             )}
           </div>
-          <p className="mt-3">
-            <strong>Created At:</strong>{" "}
-            {new Date(task.createdAt).toLocaleString()}
-          </p>
-          <p>
-            <strong>Updated At:</strong>{" "}
-            {new Date(task.updatedAt).toLocaleString()}
-          </p>
         </section>
-        <footer className="modal-card-foot">
+        <div className="button__container">
           {editMode ? (
             <>
               <button
-                className="button is-success"
+                className="button"
                 onClick={handleSave}
                 disabled={mutation.isPending}
               >
                 Save
               </button>
               <button
-                className="button"
+                className="button button--red"
                 onClick={() => setEditMode(false)}
                 disabled={mutation.isPending}
               >
@@ -179,8 +179,10 @@ export function TaskModal({ task, onClose }) {
               Edit
             </button>
           )}
-          <button className="button" onClick={onClose}>Close</button>
-        </footer>
+          <button className="button button--gray" onClick={onClose}>
+            Close
+          </button>
+        </div>
       </div>
     </div>
   );

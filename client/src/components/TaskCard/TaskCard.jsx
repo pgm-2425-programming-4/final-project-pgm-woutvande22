@@ -2,7 +2,7 @@ import React, { useState } from "react";
 import { Tag } from "./Tag/tag";
 import { TaskModal } from "./modal/TaskModal";
 
-export function TaskCard({ title, tasks, emptyText }) {
+export function TaskCard({ title, tasks, emptyText, className }) {
   const [selectedTask, setSelectedTask] = useState(null);
 
   const handleCardClick = (task) => {
@@ -14,20 +14,20 @@ export function TaskCard({ title, tasks, emptyText }) {
   };
 
   return (
-    <div className="mb-5">
-      <h2 className="title is-3">{title}</h2>
-      <div className="columns is-multiline">
+    <div>
+      <div className={`column__title ${className}`}>{title}</div>
+      <div>
         {tasks.length === 0 ? (
-          <div className="column is-12">
-            <div className="notification is-light">{emptyText}</div>
+          <div>
+            <div>{emptyText}</div>
           </div>
         ) : (
           tasks.map((task) => (
-            <div className="column is-4" key={task.id}>
-              <div className="card is-clickable" onClick={() => handleCardClick(task)}>
-                <div className="card-content">
-                  <p className="title is-5">{task.title}</p>
-                  <div className="tags">
+            <div key={task.id}>
+              <div className="card" onClick={() => handleCardClick(task)}>
+                <div>
+                  <p>{task.title}</p>
+                  <div className="card__tags">
                     {task.tags?.map((tag) => (
                       <Tag key={tag.id} title={tag.title} />
                     ))}

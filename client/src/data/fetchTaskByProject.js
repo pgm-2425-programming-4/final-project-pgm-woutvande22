@@ -7,7 +7,7 @@ export async function fetchTasksByProjectId(projectId) {
       headers: {
         Authorization: `Bearer ${API_TOKEN}`,
       },
-    }
+    },
   );
   const data = await result.json();
   return data;

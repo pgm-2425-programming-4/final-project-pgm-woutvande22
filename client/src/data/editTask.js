@@ -8,11 +8,11 @@ export async function editTask(taskId, { state, title, description, tags }) {
       Authorization: `Bearer ${API_TOKEN}`,
     },
     body: JSON.stringify({
-      data: { 
-        state, 
-        title, 
+      data: {
+        state,
+        title,
         description,
-        tags // This will be an array of tag IDs
+        tags, // This will be an array of tag IDs
       },
     }),
   });

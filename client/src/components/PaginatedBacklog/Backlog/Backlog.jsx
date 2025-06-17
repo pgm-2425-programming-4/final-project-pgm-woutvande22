@@ -15,21 +15,23 @@ export function Backlog({ backlog, total }) {
 
   return (
     <div>
-      <div style={{ marginBottom: "1rem" }}></div>
-      <table className="table is-fullwidth is-striped is-hoverable">
-        <thead>
+      <table className="backlog">
+        <thead className="backlog__header">
           <tr>
-            <th><strong>Backlog tasks: {total}</strong></th>
+            <th className="backlog__title">
+              <strong>Backlog tasks: {total}</strong>
+            </th>
           </tr>
         </thead>
-        <tbody>
+        <tbody className="backlog__body">
           {backlog.map((item) => (
             <tr
               key={item.id}
               onClick={() => handleRowClick(item)}
               style={{ cursor: "pointer" }}
+              className="backlog__row"
             >
-              <td>{item.title}</td>
+              <td className="backlog__text">{item.title}</td>
             </tr>
           ))}
         </tbody>
