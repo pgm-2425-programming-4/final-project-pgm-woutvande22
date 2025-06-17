@@ -2,5 +2,12 @@
     --background-colr: hsl(211, 17%, 97%);
     --card-color: hsl(0, 0%, 97%);
     --text-color:hsl(218, 52%, 5%);
-    
+
+
+    :root {
+        --text-size-side-nav: 0.875rem;
+        --text-size-base: 1rem; 
+        --text-size-h1: 2rem;
+        --text-size-h2: 1.5rem;          
+      }
 }
