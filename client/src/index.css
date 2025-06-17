@@ -1,1 +1,7 @@
 @import url("../src/css/reset.css");
+@import url("../src/css/nav.css");
+
+#root {
+  display: grid;
+  grid-template-columns: auto 1fr;
+}

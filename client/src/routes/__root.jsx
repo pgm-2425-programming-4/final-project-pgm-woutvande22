@@ -28,10 +28,10 @@ function RootComponent() {
 
   return (
     <>
-      <div className="p-4 navbar">
-        <ul>
-          <li>
-            <Link to="/">About</Link>
+      <nav className="nav">
+        <ul className="nav__list">
+          <li className="nav__item">
+            <Link className="nav__link" to="/">About</Link>
           </li>
           {data?.data?.map((project) => {
             // Determine if this project link is active
@@ -39,12 +39,12 @@ function RootComponent() {
               String(project.id) === String(currentProjectId);
 
             return (
-              <li key={project.id}>
-                <Link
+              <li key={project.id} className="nav__item"> 
+                <Link className="nav__link"
                   to="/projects/$projectsId"
                   params={{ projectsId: String(project.id) }}
                   style={{
-                    color: isActive ? "#3273dc" : undefined, // Bulma primary color
+                    color: isActive ? "#3273dc" : undefined, //sets active color
                     fontWeight: isActive ? "bold" : undefined,
                   }}
                 >
@@ -54,8 +54,7 @@ function RootComponent() {
             );
           })}
         </ul>
-      </div>
-      <hr />
+      </nav>
       <Outlet />
       <TanStackRouterDevtools />
     </>
