@@ -44,7 +44,7 @@ export function TaskModal({ task, onClose }) {
 
   const handleSave = () => {
     mutation.mutate({
-      taskId: task.id,
+      taskId: task.documentId,
       state: currentState,
       title,
       description,
