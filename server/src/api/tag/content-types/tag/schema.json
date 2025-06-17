@@ -15,9 +15,9 @@
       "type": "string",
       "required": true
     },
-    "task": {
+    "tasks": {
       "type": "relation",
-      "relation": "manyToOne",
+      "relation": "manyToMany",
       "target": "api::task.task",
       "inversedBy": "tags"
     }

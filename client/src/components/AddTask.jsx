@@ -111,7 +111,7 @@ export function AddTask({ projectId, tags, onClose }) {
               </div>
             )}
           </section>
-          <footer className="modal-card-foot">
+          <div className="button__container">
             <button
               className="button is-success"
               type="submit"
@@ -122,7 +122,7 @@ export function AddTask({ projectId, tags, onClose }) {
             <button className="button" type="button" onClick={onClose}>
               Cancel
             </button>
-          </footer>
+          </div>
         </form>
       </div>
     </div>
