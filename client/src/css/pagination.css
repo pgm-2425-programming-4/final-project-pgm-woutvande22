@@ -37,10 +37,6 @@
     color: var(--button-text-color);
     font-weight: bold;
     cursor: default;
-
-    &:hover {
-      background-color: var(--button-secondary-hover);
-    }
   }
 
   & .pagination-next,

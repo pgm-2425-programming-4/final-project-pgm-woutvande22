@@ -2,5 +2,6 @@
   position: relative;
   display: inline-block;
   width: 20rem;
+  height: 2rem;
   border-radius: 4px;
 }
