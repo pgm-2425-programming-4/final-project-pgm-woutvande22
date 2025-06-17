@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { TaskModal } from "../../TaskCard/modal/TaskModal";
+import { TaskModal } from "../../TaskCard/Modal/TaskModal";
 
 export function Backlog({ backlog, total }) {
   const [selectedTask, setSelectedTask] = useState(null);
