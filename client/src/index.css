@@ -1,1 +1,33 @@
-@import "https://cdn.jsdelivr.net/npm/bulma@1.0.4/css/bulma.min.css";
+@import url("../src/css/reset.css");
+@import url("../src/css/variables.css");
+@import url("../src/css/nav.css");
+@import url("../src/css/container.css");
+@import url("../src/css/tagDropdown.css");
+@import url("../src/css/button.css");
+@import url("../src/css/modal.css");
+@import url("../src/css/taskCard.css");
+@import url("../src/css/tags.css");
+@import url("../src/css/backlog.css");
+@import url("../src/css/pagination.css");
+@import url("../src/css/about.css");
+body {
+  margin: 0;
+  padding: 0;
+  font-family: Arial, sans-serif;
+  background-color: var(--background-color);
+  color: var(--text-color);
+}
+
+#root {
+  display: grid;
+  grid-template-columns: auto 1fr;
+}
+
+h1 {
+  font-size: var(--text-size-h1);
+  margin: 0;
+}
+h2 {
+  font-size: var(--text-size-h2);
+  margin: 0;
+}

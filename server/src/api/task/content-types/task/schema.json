@@ -1,0 +1,44 @@
+{
+  "kind": "collectionType",
+  "collectionName": "tasks",
+  "info": {
+    "singularName": "task",
+    "pluralName": "tasks",
+    "displayName": "task",
+    "description": ""
+  },
+  "options": {
+    "draftAndPublish": true
+  },
+  "attributes": {
+    "title": {
+      "type": "string"
+    },
+    "project": {
+      "type": "relation",
+      "relation": "manyToOne",
+      "target": "api::project.project",
+      "inversedBy": "tasks"
+    },
+    "state": {
+      "type": "enumeration",
+      "enum": [
+        "todo",
+        "progress",
+        "review",
+        "done",
+        "backlog"
+      ]
+    },
+    "description": {
+      "type": "text",
+      "default": "Beschrijving van de taak"
+    },
+    "tags": {
+      "type": "relation",
+      "relation": "manyToMany",
+      "target": "api::tag.tag",
+      "mappedBy": "tasks"
+    }
+  }
+}
