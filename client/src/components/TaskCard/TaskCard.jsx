@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import { Tag } from "./Tag/tag";
-import { TaskModal } from "./modal/TaskModal";
+import { TaskModal } from "./Modal/TaskModal";
 
 export function TaskCard({ title, tasks, emptyText, className }) {
   const [selectedTask, setSelectedTask] = useState(null);
