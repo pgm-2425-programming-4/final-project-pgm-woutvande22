@@ -95,7 +95,7 @@ function RouteComponent() {
             placeholder="All"
           />
         
-        <Link to="/projects/$projectsId/backlog" params={{ projectsId }}>
+        <Link className='button button--link' to="/projects/$projectsId/backlog" params={{ projectsId }}>
           Backlog
         </Link>
         <button

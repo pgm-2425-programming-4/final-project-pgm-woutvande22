@@ -18,7 +18,7 @@ export function TagDropdown({
 
   return (
     <select
-      className="input"
+      className="select"
       style={{ maxWidth: 300 }}
       value={multiple ? value || [] : value || ""}
       onChange={handleChange}

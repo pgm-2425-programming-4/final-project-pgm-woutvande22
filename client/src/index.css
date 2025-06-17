@@ -2,6 +2,8 @@
 @import url("../src/css/variables.css");
 @import url("../src/css/nav.css");
 @import url("../src/css/container.css");
+@import url("../src/css/tagDropdown.css");
+@import url("../src/css/button.css");
 
 body {
   margin: 0;
