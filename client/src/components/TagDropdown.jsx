@@ -1,15 +1,31 @@
 import React from "react";
 
-export function TagDropdown({ tags, value, onChange, placeholder = "All tags" }) {
+export function TagDropdown({
+  tags,
+  value,
+  onChange,
+  multiple = false,
+  placeholder = "All tags",
+}) {
+  const handleChange = (e) => {
+    if (multiple) {
+      const selected = Array.from(e.target.selectedOptions, (option) => option.value);
+      onChange(selected);
+    } else {
+      onChange(e.target.value);
+    }
+  };
+
   return (
     <select
       className="input"
       style={{ maxWidth: 300 }}
-      value={value}
-      onChange={e => onChange(e.target.value)}
+      value={multiple ? value || [] : value || ""}
+      onChange={handleChange}
+      multiple={multiple}
     >
-      <option value="">{placeholder}</option>
-      {tags.map(tag => (
+      {!multiple && <option value="">{placeholder}</option>}
+      {tags.map((tag) => (
         <option key={tag.id} value={tag.id}>
           {tag.title || tag.name}
         </option>

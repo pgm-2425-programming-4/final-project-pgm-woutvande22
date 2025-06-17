@@ -1,37 +1,44 @@
 import { useState, useEffect } from "react";
 import { Tag } from "../Tag/tag";
-import { useMutation, useQueryClient } from "@tanstack/react-query";
+import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
 import { editTask } from "../../../data/editTask";
+import { fetchTags } from "../../../data/fetchTags";
 
 const STATES = ["todo", "progress", "review", "done", "backlog"];
 
-export function TaskModal({ task, onClose}) {
-  const [editMode, setEditMode] = useState(false); //zet edit mode when clicked
+export function TaskModal({ task, onClose }) {
+  const [editMode, setEditMode] = useState(false);
   const [title, setTitle] = useState("");
   const [description, setDescription] = useState("");
   const [currentState, setCurrentState] = useState("");
+  const [selectedTags, setSelectedTags] = useState([]);
   const queryClient = useQueryClient();
+
+  // Fetch all tags for selection
+  const { data: tagsData } = useQuery({
+    queryKey: ["tags"],
+    queryFn: fetchTags,
+  });
+  const tags = tagsData?.data || [];
 
   useEffect(() => {
     if (task) {
       setTitle(task.title);
       setDescription(task.description);
       setCurrentState(task.state);
+      setSelectedTags(task.tags ? task.tags.map(tag => tag.id) : []);
     }
   }, [task]);
 
   const mutation = useMutation({
-    mutationFn: ({ taskId, state, title, description }) =>
-      editTask(taskId, { state, title, description }),
+    mutationFn: ({ taskId, state, title, description, tags }) =>
+      editTask(taskId, { state, title, description, tags }),
     onSuccess: () => {
-      // update task in backlog and task when change state
       queryClient.invalidateQueries({ queryKey: ["tasks"] });
       queryClient.invalidateQueries({ queryKey: ["backlog"] });
       setEditMode(false);
     },
   });
-
-
 
   if (!task) return null;
 
@@ -41,7 +48,16 @@ export function TaskModal({ task, onClose}) {
       state: currentState,
       title,
       description,
+      tags: selectedTags,
     });
+  };
+
+  const handleTagClick = (tagId) => {
+    setSelectedTags((prev) =>
+      prev.includes(tagId)
+        ? prev.filter((id) => id !== tagId)
+        : [...prev, tagId]
+    );
   };
 
   return (
@@ -102,12 +118,34 @@ export function TaskModal({ task, onClose}) {
             <strong>Project:</strong>{" "}
             {task.project?.name || <em>No project</em>}
           </p>
-          <div className="tags mt-3">
-            {task.tags?.length
-              ? task.tags.map(tag => (
-                  <Tag key={tag.id} title={tag.title} />
-                ))
-              : <em>No tags</em>}
+          <div className="field">
+            <strong>Tags:</strong>
+            {editMode ? (
+              <div className="tags are-medium" style={{ flexWrap: "wrap" }}>
+                {tags.map(tag => (
+                  <span
+                    key={tag.id}
+                    className={
+                      "tag"
+                      + (selectedTags.includes(tag.id) ? " is-primary" : " is-light")
+                      + " clickable"
+                    }
+                    style={{ cursor: "pointer", margin: "0.25em" }}
+                    onClick={() => handleTagClick(tag.id)}
+                  >
+                    {tag.title || tag.name}
+                  </span>
+                ))}
+              </div>
+            ) : (
+              <div className="tags mt-3">
+                {task.tags?.length
+                  ? task.tags.map(tag => (
+                      <Tag key={tag.id} title={tag.title} />
+                    ))
+                  : <em>No tags</em>}
+              </div>
+            )}
           </div>
           <p className="mt-3">
             <strong>Created At:</strong>{" "}
